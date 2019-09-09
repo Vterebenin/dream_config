@@ -103,7 +103,7 @@ module.exports = {
     new webpack.ProgressPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      ignoreOrder: true,
+      ignoreOrder: false,
     }),
 
     // new cssNano({
