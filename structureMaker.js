@@ -28,7 +28,7 @@ webDirectories.forEach(moduleFolder => {
         }
         if (!fs.existsSync(devDir)) {
             fs.mkdirSync(devDir);
-            console.log(`${asset} dev folder created for `, moduleFolder);
+            console.log("dev folder created for ", moduleFolder);
         }
     
         // * затем копируем оригиналы файлов в папку dev, чтобы не менять везде зависимости
@@ -37,16 +37,13 @@ webDirectories.forEach(moduleFolder => {
                 copyFromName = `${assetDir}${entryName}`
                 copyToName = `${devDir}${entryName}`
     
+                console.log("____________________________________________________");
+                console.log("мы копируем это", copyFromName);
+                console.log("cюда", copyToName);
                 // entryObject[name] = looker
                 fs.copyFile(copyFromName, copyToName, (err) => {
-                    if (err) {
-                        throw err;
-                    } else {
-                        console.log("____________________________________________________");
-                        console.log("мы копируем это", copyFromName);
-                        console.log("cюда", copyToName);
-                        console.log('copied!');
-                    }
+                    if (err) throw err;
+                    console.log('copied!');
                 });
             })
         })

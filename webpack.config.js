@@ -28,11 +28,6 @@ moduleDirectories.forEach(moduleFolder => {
           : entryName
         // путь куда файл будет компилироваться
         name = `${assetDir}${assetName}`
-        // путь откуда файл будет компилироваться
-        // if (asset === "js") {
-        //   looker = ['babel-polyfill', `${devDir}${entryName}`]
-        // } else {
-        // }
         looker = `${devDir}${entryName}`
         entryObject[name] = looker
       })
@@ -55,7 +50,6 @@ module.exports = {
     ],
   },
   entry: entryObject,
-  // entry: ['./allJsFilesOfFolder.js'],
   output: {
     path: path.resolve(__dirname, './'),
     filename: '[name]',
