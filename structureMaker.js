@@ -1,10 +1,8 @@
-const path = require('path');
 const fs = require('fs');
 const glob = require('glob')
-const { readdirSync } = require('fs')
 
 const getDirectories = source =>
-    readdirSync(source, { withFileTypes: true })
+    fs.readdirSync(source, { withFileTypes: true })
         .filter(webDirent => webDirent.isDirectory())
         .map(webDirent => webDirent.name)
 const webDirectories = getDirectories("./skewer/build/Page/")

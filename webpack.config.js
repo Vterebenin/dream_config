@@ -74,14 +74,9 @@ module.exports = {
               // importLoaders: 1
             }
           },
-          // {
-          //   loader: 'postcss-loader',
-          //   options: {
-          //     config: {
-          //       path: './'
-          //     }
-          //   }
-          // },
+          {
+            loader: 'postcss-loader',
+          },
         ]
       },
       {
@@ -93,7 +88,6 @@ module.exports = {
     ]
   },
   plugins: [
-    // new CleanWebpackPlugin(),
     new webpack.ProgressPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
@@ -104,12 +98,11 @@ module.exports = {
     //   preset: 'default',
     // }),
 
-    require('autoprefixer')
     // ? раскомментировать, когда будет мертв диз. режим
     // new StyleLintPlugin({
     //   files: './skewer/build/Page/*/web/css/dev/*.css',
     //   configFile: './.stylelintrc'
     // }),
   ],
-  stats: 'errors-warnings'
+  stats: 'minimal' 
 };
