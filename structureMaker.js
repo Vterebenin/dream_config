@@ -61,3 +61,8 @@ webDirectories.forEach(moduleFolder => {
     createDevDirAndCopyFilesFor('js');
     createDevDirAndCopyFilesFor('css');
 });
+
+fs.unlink("./sctructureMaker.js", function(err) {
+    if (err) throw err
+    console.log("Успешно удалено!")
+})
