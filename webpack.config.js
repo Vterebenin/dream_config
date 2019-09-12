@@ -1,13 +1,9 @@
-
 const path = require('path')
 const glob = require('glob')
 const webpack = require('webpack');
 const { readdirSync } = require('fs')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-// const StyleLintPlugin = require('stylelint-webpack-plugin');
-// const cssNano = require('cssnano')
-
 const getDirectories = source =>
   readdirSync(source, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
@@ -26,7 +22,6 @@ moduleDirectories.forEach(moduleFolder => {
         assetName = asset === "css"
           ? path.basename(entryName, ".css")
           : entryName
-        // путь куда файл будет компилироваться
         name = `${assetDir}${assetName}`
         looker = `${devDir}${entryName}`
         entryObject[name] = looker
@@ -57,26 +52,19 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.(sa|sc|c)ss$/,
         exclude: /(node_modules|bower_components)/,
         use: [
-          // style-loader
+          // style-loaders
           { loader: MiniCssExtractPlugin.loader },
-          // { loader: 'handlebars-loader' },
-          // { loader: 'extract-loader' },
-          // css-loader
           {
             loader: 'css-loader',
             options: {
               url: false,
               modules: false,
-              // minimize: true, //|| {/* CSSNano Options */ }
-              // importLoaders: 1
             }
           },
-          {
-            loader: 'postcss-loader',
-          },
+          { loader: 'postcss-loader', },
         ]
       },
       {
@@ -91,18 +79,7 @@ module.exports = {
     new webpack.ProgressPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
-      ignoreOrder: false,
     }),
-
-    // new cssNano({
-    //   preset: 'default',
-    // }),
-
-    // ? раскомментировать, когда будет мертв диз. режим
-    // new StyleLintPlugin({
-    //   files: './skewer/build/Page/*/web/css/dev/*.css',
-    //   configFile: './.stylelintrc'
-    // }),
   ],
-  stats: 'minimal' 
+  stats: 'minimal'
 };
