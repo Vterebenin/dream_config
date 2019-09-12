@@ -1,3 +1,4 @@
+const path = require('path')
 const fs = require('fs');
 const glob = require('glob')
 
@@ -6,6 +7,14 @@ const getDirectories = source =>
         .filter(webDirent => webDirent.isDirectory())
         .map(webDirent => webDirent.name)
 const webDirectories = getDirectories("./skewer/build/Page/")
+
+const ignoreList = [
+    'formValidator',
+    'email.validate',
+    'message_de',
+    'message_en',
+    'message_ru',
+]
 
 webDirectories.forEach(moduleFolder => {
     function createDevDirAndCopyFilesFor(asset) {
@@ -33,16 +42,18 @@ webDirectories.forEach(moduleFolder => {
         glob(`*.${asset}`, { cwd: assetDir, nodir: true }, function (er, files) {
             files.forEach(entryName => {
                 copyFromName = `${assetDir}${entryName}`
-                copyToName = `${devDir}${entryName}`
-    
-                console.log("____________________________________________________");
-                console.log("мы копируем это", copyFromName);
-                console.log("cюда", copyToName);
-                // entryObject[name] = looker
-                fs.copyFile(copyFromName, copyToName, (err) => {
-                    if (err) throw err;
-                    console.log('copied!');
-                });
+                if (!ignoreList.includes(path.basename(entryName, `.${asset}`))) {
+                    copyToName = `${devDir}${entryName}`
+                    
+                    console.log("____________________________________________________");
+                    console.log("мы копируем это", copyFromName);
+                    console.log("cюда", copyToName);
+                    // entryObject[name] = looker
+                    fs.copyFile(copyFromName, copyToName, (err) => {
+                        if (err) throw err;
+                        console.log('copied!');
+                    });
+                }
             })
         })
     }
